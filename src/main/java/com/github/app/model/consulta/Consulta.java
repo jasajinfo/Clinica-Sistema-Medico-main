@@ -8,7 +8,6 @@ import com.github.app.model.paciente.Paciente;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
 @Getter
 @Setter
@@ -33,5 +32,13 @@ public class Consulta {
     private String observacao;
     private LocalDateTime data;    
     
-    
+    // terceiro constructor da classe consulta que recebe a conversão que a classe DTO DadosAgendamentoConsulta etá realizando . Json-> OBJ.
+    public Consulta(DadosAgendamentoConsulta dados) {
+     //   this.medico = dados.medicoId();
+       // this.paciente  = dados.pacienteId();
+        this.status = dados.status();
+        this.observacao = dados.observacao();   
+        this.data = dados.data();
+    }
+
 }

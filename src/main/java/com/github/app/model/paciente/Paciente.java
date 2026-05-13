@@ -1,6 +1,8 @@
 package com.github.app.model.paciente;
 //classe modelo responsp por criar tabelas e colunas no bd
 
+import com.github.app.model.endereco.Endereco;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,19 +22,24 @@ public class Paciente {
     private Integer id; // não está vindo do insomnia.  Vem do Sripring JPA e cria o id de forma utomática
     private String nome;
     private String email;
+    private String cpf;
     private String telefone;
     
     @Embedded // anotação do spring que indica que esse atributo é um objeto embutido, ou seja, ele vai ser mapeado para colunas na mesma tabela do médico, e não em uma tabela separada
   
   
   private Endereco endereco;
+    private boolean ativo;
+
   
   //Construtor que recebe um objeto do tipo DadosCadastroPaciente e inicializa os atributos do paciente com os valores desse objeto
   public Paciente(DadosCadastroPaciente dados) {
     this.nome = dados.nome();
     this.email = dados.email();
-     this.telefone = dados.telefone();
-     this.endereco = new Endereco(dados.endereco());
+    this.telefone = dados.telefone();
+    this.cpf = dados.cpf();
+    this.endereco = new Endereco(dados.endereco());
+
   }
   // Método para verificar a atualização do paciente, recebendo um objeto do tipo DadosAtualizacaoPaciente e atualizando os atributos do paciente com os dados recebidos na requisição.
     public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {
@@ -41,8 +48,14 @@ public class Paciente {
             this.nome = dados.nome();
         }
         if(dados.email() != null) {
-            this.email = dados.email();
+            this.email = (String) dados.email();
         }
+        
+        if(dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }                       
+
+
         if(dados.endereco() != null) {
             this.endereco.atualizarInformacoes(dados.endereco());
         }

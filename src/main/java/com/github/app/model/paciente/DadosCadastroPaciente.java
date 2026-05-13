@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroPaciente(
+    
 
     @NotBlank // Verifica se o campo está preenchido -> Em Strings
     String nome, 
@@ -17,6 +18,7 @@ public record DadosCadastroPaciente(
 
     String telefone,
 
+    String cpf,
 
     @NotNull @Valid
     DadosCadastroEndereco endereco
